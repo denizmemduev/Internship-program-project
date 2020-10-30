@@ -1,9 +1,26 @@
 const Joi=require('joi');
 const express=require('express');
-
+const bodyParser = require('body-parser');
 const app=express();
 
+app.use(express.static('./front-end'));
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+//Importing Routes
+
+const  studentsRoute =require('./routes/interns');
+app.use('/interns', studentsRoute);
+
+
+const  teamsRoute =require('./routes/teams');
+app.use('/teams', teamsRoute);
+
+
+//-------------------------------------------------------------------------------------------------------
+
+
+
 const teams=[
     {id:1,name:"Indus"},
     {id:2,name:"White"},
@@ -148,6 +165,8 @@ app.get('/teams/interns/:id',(req,res)=>{
     res.send(intern);
 })
 
+
+
 app.post('/teams/interns',(req,res)=>
 {
     const result=validateIntern(req.body);  
@@ -290,7 +309,7 @@ function validateTeamID(id)
     }
     return false;
 }
-const port=process.env.PORT || 3000;
+const port=process.env.PORT || 4000;
 app.listen(port,()=>console.log(`Listenning on port ${port}...`))
 
 
