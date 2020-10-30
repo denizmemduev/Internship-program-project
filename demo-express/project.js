@@ -1,11 +1,28 @@
+
+
 const Joi=require('joi');
 const express=require('express');
 const bodyParser = require('body-parser');
 const app=express();
+const admin = require('firebase-admin');
+
 
 app.use(express.static('./front-end'));
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
+
+//------------------------------------------------------------
+var serviceAccount = require("/home/alienware/Documents/internship-program-project-firebase-adminsdk-zlo13-eb9de19ca6.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://internship-program-project.firebaseio.com"
+});
+
+//---------------------------------------------------------------
+
 
 //Importing Routes
 
@@ -309,6 +326,8 @@ function validateTeamID(id)
     }
     return false;
 }
+
+
 const port=process.env.PORT || 4000;
 app.listen(port,()=>console.log(`Listenning on port ${port}...`))
 

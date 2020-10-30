@@ -1,10 +1,53 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/',(req, res)=>{
+const admin = require('firebase-admin');
+const db = admin.firestore();
 
-res.send("we are in teams")
 
-})
+
+router.post('/', (req, res) => {
+    (async () => {
+        try {
+          await db.collection('teams').doc()
+              .create({
+                  teamname: req.body.teamname
+                  
+                });
+              
+          return res.status(200).send();
+        } catch (error) {
+          console.log(error);
+          return res.status(500).send(error);
+        }
+      })();
+  });
+
+
+//------------------------------------------------------------------------------
+
+router.get('/', (req, res) => {
+    (async () => {
+        try {
+            let query = db.collection('teams');
+            let response = [];
+            await query.get().then(querySnapshot => {
+            let docs = querySnapshot.docs;
+            for (let doc of docs) {
+                const selectedItem = {
+                    id: doc.id,
+                  data: doc.data()
+
+                };
+                response.push(selectedItem);
+            }
+            });
+            return res.status(200).send(response);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+        })();
+    });
 
 module.exports = router;
