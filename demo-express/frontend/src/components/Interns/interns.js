@@ -94,6 +94,15 @@ $(document).ready(function () {
   $("#button").click(function modal() {
     $(".di").css({
       display: "block",
+      opacity: "1",
+      transition: "0.5s",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
+      flexWrap: "wrap",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
     });
   });
 });
