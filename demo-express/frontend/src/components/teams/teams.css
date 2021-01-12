@@ -1,0 +1,27 @@
+.teams {
+  background-color: rgba(0, 0, 0, 0.24);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 500px;
+
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+select {
+  height: 38px;
+  margin: 3px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  outline: none;
+  width: 300px;
+}
